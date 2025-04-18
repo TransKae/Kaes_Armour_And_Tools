@@ -18,6 +18,7 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, KaesArmourAndTools.MOD_ID);
 
     public static final RegistryObject<Block> EMMERCIUMBLOCK = registerBlock("emmercium_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
+    public static final RegistryObject<Block> EMMERCIUMORE = registerBlock("emmercium_ore", () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_ORE)));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block)
     {

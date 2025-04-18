@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "III",
+    "III",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "kaes_armour_and_tools:emmercium_ingot"
+    }
+  },
+  "result": {
+    "item": "kaes_armour_and_tools:emmercium_block"
+  }
+}
