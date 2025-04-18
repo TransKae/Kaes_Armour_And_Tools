@@ -1,6 +1,9 @@
 package com.transkae.kaes_armour_and_tools;
 
 import com.mojang.logging.LogUtils;
+import com.transkae.kaes_armour_and_tools.block.ModBlocks;
+import com.transkae.kaes_armour_and_tools.item.ModCreativeModeTabs;
+import com.transkae.kaes_armour_and_tools.item.ModItems;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
@@ -46,13 +49,14 @@ public class KaesArmourAndTools
     {
         IEventBus modEventBus = context.getModEventBus();
 
+        ModCreativeModeTabs.register(modEventBus);
+
+        ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
+
         modEventBus.addListener(this::commonSetup);
 
-        MinecraftForge.EVENT_BUS.register(this);
-
         modEventBus.addListener(this::addCreative);
-
-        context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
@@ -62,7 +66,10 @@ public class KaesArmourAndTools
 
     private void addCreative(BuildCreativeModeTabContentsEvent event)
     {
-
+        if(event.getTabKey() == CreativeModeTabs.INGREDIENTS)
+        {
+            event.accept(ModItems.EMMERCIUMINGOT);
+        }
     }
 
     @SubscribeEvent
