@@ -68,7 +68,7 @@ public class KaesArmourAndTools
     {
         if(event.getTabKey() == CreativeModeTabs.INGREDIENTS)
         {
-            event.accept(ModItems.EMMERCIUMINGOT);
+            event.accept(ModItems.EMMERCIUMPICKAXE);
         }
     }
 

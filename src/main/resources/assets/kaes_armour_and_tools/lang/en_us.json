@@ -1,9 +1,16 @@
 {
   "item.kaes_armour_and_tools.raw_emmercium": "Raw Emmercium",
   "item.kaes_armour_and_tools.emmercium_ingot": "Emmercium Ingot",
-  "item.kaes_armour_and_tools.emmercium_sword": "Emmercium sword",
+
+
+  "item.kaes_armour_and_tools.emmercium_sword": "Emmercium Sword",
+  "item.kaes_armour_and_tools.emmercium_pickaxe": "Emmercium Pickaxe",
+  "item.kaes_armour_and_tools.emmercium_axe": "Emmercium Axe",
+  "item.kaes_armour_and_tools.emmercium_shovel": "Emmercium Shovel",
+  "item.kaes_armour_and_tools.emmercium_hoe": "Emmercium Hoe",
 
   "block.kaes_armour_and_tools.emmercium_block": "Emmercium Block",
+  "block.kaes_armour_and_tools.emmercium_ore": "Emmercium Ore",
 
   "creativetab.kaes_armour_and_tools_tab": "Kae's Armour and Tools"
 }
