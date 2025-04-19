@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_raw_emmercium": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "kaes_armour_and_tools:raw_emmercium"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "kaes_armour_and_tools:emmercium_ingot_from_blasting_raw_emmercium"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_raw_emmercium",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "kaes_armour_and_tools:emmercium_ingot_from_blasting_raw_emmercium"
+    ]
+  },
+  "sends_telemetry_event": false
+}

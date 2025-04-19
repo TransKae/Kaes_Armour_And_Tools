@@ -21,11 +21,17 @@ public class ModCreativeModeTabs
                 pOutput.accept(ModBlocks.EMMERCIUMORE.get());
                 pOutput.accept(ModItems.EMMERCIUMINGOT.get());
                 pOutput.accept(ModBlocks.EMMERCIUMBLOCK.get());
+
                 pOutput.accept(ModItems.EMMERCIUMSWORD.get());
                 pOutput.accept(ModItems.EMMERCIUMPICKAXE.get());
                 pOutput.accept(ModItems.EMMERCIUMAXE.get());
                 pOutput.accept(ModItems.EMMERCIUMSHOVEL.get());
                 pOutput.accept(ModItems.EMMERCIUMHOE.get());
+
+                pOutput.accept(ModItems.EMMERCIUMHELMET.get());
+                pOutput.accept(ModItems.EMMERCIUMCHESTPLATE.get());
+                pOutput.accept(ModItems.EMMERCIUMLEGGINGS.get());
+                pOutput.accept(ModItems.EMMERCIUMBOOTS.get());
             }).build());
 
 

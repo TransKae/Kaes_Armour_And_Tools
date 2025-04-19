@@ -3,8 +3,12 @@ package com.transkae.kaes_armour_and_tools.datagen;
 import com.transkae.kaes_armour_and_tools.KaesArmourAndTools;
 import com.transkae.kaes_armour_and_tools.block.ModBlocks;
 import com.transkae.kaes_armour_and_tools.item.ModItems;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -32,6 +36,37 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("EEE")
                         .define('E', ModItems.EMMERCIUMINGOT.get())
                                 .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
+
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.EMMERCIUMHELMET.get())
+                .pattern("EEE")
+                .pattern("E E")
+                .pattern("   ")
+                .define('E', ModItems.EMMERCIUMINGOT.get())
+                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.EMMERCIUMCHESTPLATE.get())
+                .pattern("E E")
+                .pattern("EEE")
+                .pattern("EEE")
+                .define('E', ModItems.EMMERCIUMINGOT.get())
+                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.EMMERCIUMLEGGINGS.get())
+                .pattern("EEE")
+                .pattern("E E")
+                .pattern("E E")
+                .define('E', ModItems.EMMERCIUMINGOT.get())
+                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.EMMERCIUMBOOTS.get())
+                .pattern("E E")
+                .pattern("E E")
+                .pattern("   ")
+                .define('E', ModItems.EMMERCIUMINGOT.get())
+                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
+
+
 
         //Shapeless Crafting
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.EMMERCIUMINGOT.get(), 9)

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "kaes_armour_and_tools:emmercium_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "kaes_armour_and_tools:emmercium_ingot"
+  }
+}
