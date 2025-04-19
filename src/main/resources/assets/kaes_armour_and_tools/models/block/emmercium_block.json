@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "kaes_armour_and_tools:block/emmercium_block"
-  }
-}
