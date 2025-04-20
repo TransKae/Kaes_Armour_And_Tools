@@ -1,7 +1,9 @@
-// 1.20.1	2025-04-19T17:39:37.7355924	Block States: kaes_armour_and_tools
+// 1.20.1	2025-04-20T22:40:13.2539632	Block States: kaes_armour_and_tools
+6be7ed6bd7be1af8975ec9320ed3d7f307834e59 assets/kaes_armour_and_tools/blockstates/alloy_smelter.json
 b91326fbcbed6b4cfe385001b79c4fa21bbc4fc6 assets/kaes_armour_and_tools/blockstates/emmercium_block.json
 d3eb9d59e2eb5efc58ed6449081d036a1994e904 assets/kaes_armour_and_tools/blockstates/emmercium_ore.json
 9400d708093a75b6402a3b5b9d253ab09eb78867 assets/kaes_armour_and_tools/models/block/emmercium_block.json
 70a85b0e715c95389f5ab328d6a510ca1a86288c assets/kaes_armour_and_tools/models/block/emmercium_ore.json
+0abb4dc5b7a4fbb4430a19ec0ee31de24a859caf assets/kaes_armour_and_tools/models/item/alloy_smelter.json
 9a0ca0661a3e105bf9bf2689591bed128ccd5cfc assets/kaes_armour_and_tools/models/item/emmercium_block.json
 9974ec7046d8c551b98e730bdba183038d2807ff assets/kaes_armour_and_tools/models/item/emmercium_ore.json

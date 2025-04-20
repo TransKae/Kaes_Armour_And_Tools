@@ -19,6 +19,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
     @Override
     protected void generate() {
         this.dropSelf(ModBlocks.EMMERCIUMBLOCK.get());
+        this.dropSelf(ModBlocks.ALLOYSMELTER.get());
 
         this.add(ModBlocks.EMMERCIUMORE.get(),
                 block -> createOreDrop(ModBlocks.EMMERCIUMORE.get(), ModItems.RAWEMMERCIUM.get()));

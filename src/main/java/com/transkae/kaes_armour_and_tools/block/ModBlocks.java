@@ -2,6 +2,7 @@ package com.transkae.kaes_armour_and_tools.block;
 
 import com.transkae.kaes_armour_and_tools.KaesArmourAndTools;
 import com.transkae.kaes_armour_and_tools.item.ModItems;
+import com.transkae.kaes_armour_and_tools.block.custom.AlloySmelterBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -19,6 +20,8 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> EMMERCIUMBLOCK = registerBlock("emmercium_block", () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK)));
     public static final RegistryObject<Block> EMMERCIUMORE = registerBlock("emmercium_ore", () -> new Block(BlockBehaviour.Properties.copy(Blocks.IRON_ORE)));
+
+    public static final RegistryObject<Block> ALLOYSMELTER = registerBlock("alloy_smelter", () -> new AlloySmelterBlock(BlockBehaviour.Properties.copy(Blocks.IRON_BLOCK).noOcclusion()));
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block)
     {

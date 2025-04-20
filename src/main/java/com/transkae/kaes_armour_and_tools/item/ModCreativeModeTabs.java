@@ -32,6 +32,8 @@ public class ModCreativeModeTabs
                 pOutput.accept(ModItems.EMMERCIUMCHESTPLATE.get());
                 pOutput.accept(ModItems.EMMERCIUMLEGGINGS.get());
                 pOutput.accept(ModItems.EMMERCIUMBOOTS.get());
+
+                pOutput.accept(ModBlocks.ALLOYSMELTER.get());
             }).build());
 
 

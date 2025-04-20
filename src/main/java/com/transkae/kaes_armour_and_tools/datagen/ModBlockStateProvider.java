@@ -5,6 +5,8 @@ import com.transkae.kaes_armour_and_tools.block.ModBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -17,6 +19,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         blockWithItem(ModBlocks.EMMERCIUMBLOCK);
         blockWithItem(ModBlocks.EMMERCIUMORE);
+
+        simpleBlockWithItem(ModBlocks.ALLOYSMELTER.get(), new ModelFile.UncheckedModelFile(modLoc("block/alloy_smelter")));
     }
     private void blockWithItem(RegistryObject<Block> blockRegistryObject) {
         simpleBlockWithItem(blockRegistryObject.get(), cubeAll(blockRegistryObject.get()));

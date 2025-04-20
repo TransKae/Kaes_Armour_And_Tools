@@ -2,9 +2,13 @@ package com.transkae.kaes_armour_and_tools;
 
 import com.mojang.logging.LogUtils;
 import com.transkae.kaes_armour_and_tools.block.ModBlocks;
+import com.transkae.kaes_armour_and_tools.block.entity.ModBlockEntities;
 import com.transkae.kaes_armour_and_tools.item.ModCreativeModeTabs;
 import com.transkae.kaes_armour_and_tools.item.ModItems;
 import com.transkae.kaes_armour_and_tools.loot.ModLootModifiers;
+import com.transkae.kaes_armour_and_tools.screen.AlloySmelterScreen;
+import com.transkae.kaes_armour_and_tools.screen.ModMenuTypes;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
@@ -60,6 +64,9 @@ public class KaesArmourAndTools
         modEventBus.addListener(this::addCreative);
 
         ModLootModifiers.register(modEventBus);
+
+        ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
@@ -87,7 +94,7 @@ public class KaesArmourAndTools
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-
+            MenuScreens.register(ModMenuTypes.ALLOYSMELTERMENU.get(), AlloySmelterScreen::new);
         }
     }
 }
