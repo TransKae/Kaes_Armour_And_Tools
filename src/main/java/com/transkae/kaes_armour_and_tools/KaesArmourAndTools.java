@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.transkae.kaes_armour_and_tools.block.ModBlocks;
 import com.transkae.kaes_armour_and_tools.item.ModCreativeModeTabs;
 import com.transkae.kaes_armour_and_tools.item.ModItems;
+import com.transkae.kaes_armour_and_tools.loot.ModLootModifiers;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
@@ -57,6 +58,8 @@ public class KaesArmourAndTools
         modEventBus.addListener(this::commonSetup);
 
         modEventBus.addListener(this::addCreative);
+
+        ModLootModifiers.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)

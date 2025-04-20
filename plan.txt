@@ -1,0 +1,39 @@
+Armour:
+Chain - Iron
+'Durable' - durium - resistance 2, KBresistance - High durability - alloying emmercium + obsidian
+'Pyro' - pyrium - fire resistance - basic armour stats - alloying blaze powder + iron + netherack
+
+Iron - Diamond
+'Emmerging' - emmercium - haste - basic armour stats - emmercium ingots
+
+Diamond - Netherite
+'Braced' - bracium - resistance 3, 100% KBresistance, regeneration, slowness - Very High Durability - bracium ingots
+
+Netherite+
+'resiliant' -resilium - regeneration 2, fire resistance, resistance 2, high KBresistance - Very High Durabilty - alloying 'reconstructed emmercium' + netherite + 
+
+
+Tools:
+
+
+BlockEntities:
+Alloy Smelter: take up to three inputs - uses fuel (e.g. Coal)
+{Generators}: uses a fuel to produce power - (fuel dependant on generator type)
+Recontructor: one input - uses quartz and power
+
+
+Materials:
+Basic:
+Emmercium
+
+Jewels:
+Basic Jewel - 
+
+Alloys:
+Durium - alloying 'emmercium' + 'obsidian'
+Pyrium - alloying 'quartz' + 'blaze powder' + 'netherack'
+Bracium - alloying 'obsidian' + '
+Resilium - alloying 'reconstructed emmercium' + 'netherite' + 'end jewel'
+
+Reconstructed:
+'Reconstructed Emmercium' - reconstructing 'emmercium'

@@ -1,0 +1,14 @@
+{
+  "type": "kaes_armour_and_tools:add_item",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chest/bastion_bridge"
+    },
+    {
+      "chance": 0.4,
+      "condition": "minecraft:random_chance"
+    }
+  ],
+  "item": "kaes_armour_and_tools:emmercium_boots"
+}

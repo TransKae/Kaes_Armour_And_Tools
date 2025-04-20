@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "E": {
+      "item": "kaes_armour_and_tools:emmercium_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "EE ",
+    " S ",
+    " S "
+  ],
+  "result": {
+    "item": "kaes_armour_and_tools:emmercium_hoe"
+  },
+  "show_notification": true
+}

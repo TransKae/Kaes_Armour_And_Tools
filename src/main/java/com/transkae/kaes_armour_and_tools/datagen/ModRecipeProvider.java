@@ -14,11 +14,15 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 import java.util.function.Consumer;
 
 public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
+    
+    public static final DeferredRegister<Item> VANILLA_ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, "minecraft");
 
     private static final List<ItemLike> EMMERCIUM_SMELTABLES = List.of(ModItems.RAWEMMERCIUM.get(),
             ModBlocks.EMMERCIUMORE.get());
@@ -64,6 +68,42 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("E E")
                 .pattern("   ")
                 .define('E', ModItems.EMMERCIUMINGOT.get())
+                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
+
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.EMMERCIUMSWORD.get())
+                .pattern("E")
+                .pattern("E")
+                .pattern("S")
+                .define('E', ModItems.EMMERCIUMINGOT.get()).define('S', Items.STICK)
+                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ModItems.EMMERCIUMSHOVEL.get())
+                .pattern("E")
+                .pattern("S")
+                .pattern("S")
+                .define('E', ModItems.EMMERCIUMINGOT.get()).define('S', Items.STICK)
+                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ModItems.EMMERCIUMPICKAXE.get())
+                .pattern("EEE")
+                .pattern(" S ")
+                .pattern(" S ")
+                .define('E', ModItems.EMMERCIUMINGOT.get()).define('S', Items.STICK)
+                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ModItems.EMMERCIUMAXE.get())
+                .pattern("EE ")
+                .pattern("ES ")
+                .pattern(" S ")
+                .define('E', ModItems.EMMERCIUMINGOT.get()).define('S', Items.STICK)
+                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ModItems.EMMERCIUMHOE.get())
+                .pattern("EE ")
+                .pattern(" S ")
+                .pattern(" S ")
+                .define('E', ModItems.EMMERCIUMINGOT.get()).define('S', Items.STICK)
                 .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
 
 
