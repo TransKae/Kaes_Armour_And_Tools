@@ -6,6 +6,7 @@ import com.transkae.kaes_armour_and_tools.block.entity.ModBlockEntities;
 import com.transkae.kaes_armour_and_tools.item.ModCreativeModeTabs;
 import com.transkae.kaes_armour_and_tools.item.ModItems;
 import com.transkae.kaes_armour_and_tools.loot.ModLootModifiers;
+import com.transkae.kaes_armour_and_tools.recipe.ModRecipe;
 import com.transkae.kaes_armour_and_tools.screen.AlloySmelterScreen;
 import com.transkae.kaes_armour_and_tools.screen.ModMenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -67,6 +68,8 @@ public class KaesArmourAndTools
 
         ModBlockEntities.register(modEventBus);
         ModMenuTypes.register(modEventBus);
+
+        ModRecipe.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)

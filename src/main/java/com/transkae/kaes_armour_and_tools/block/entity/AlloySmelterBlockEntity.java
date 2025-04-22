@@ -1,12 +1,14 @@
 package com.transkae.kaes_armour_and_tools.block.entity;
 
-import com.transkae.kaes_armour_and_tools.item.ModItems;
+import com.transkae.kaes_armour_and_tools.recipe.AlloySmelterRecipe;
 import com.transkae.kaes_armour_and_tools.screen.AlloySmelterMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.Container;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
@@ -18,23 +20,32 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+
 public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider {
-    private final ItemStackHandler itemHandler = new ItemStackHandler(5);
-    private static final int INPUT_SLOT_1 = 0;
+    private final ItemStackHandler itemHandler = new ItemStackHandler(2) {
+        @Override
+        protected void onContentsChanged(int slot) {
+            setChanged();
+            if(!level.isClientSide()) {
+                level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+            }
+        }
+    };
+
+    private static final int INPUT_SLOT = 0;
     private static final int OUTPUT_SLOT = 1;
 
-    LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
+    private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
     protected final ContainerData data;
     private int progress = 0;
@@ -54,14 +65,25 @@ public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider
 
             @Override
             public void set(int pIndex, int pValue) {
-
+                switch (pIndex) {
+                    case 0 -> AlloySmelterBlockEntity.this.progress = pValue;
+                    case 1 -> AlloySmelterBlockEntity.this.maxProgress = pValue;
+                }
             }
 
             @Override
             public int getCount() {
-                return 0;
+                return 2;
             }
         };
+    }
+
+    public ItemStack getRenderStack() {
+        if(itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty()) {
+            return itemHandler.getStackInSlot(INPUT_SLOT);
+        } else {
+            return itemHandler.getStackInSlot(OUTPUT_SLOT);
+        }
     }
 
     @Override
@@ -69,6 +91,7 @@ public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider
         if(cap == ForgeCapabilities.ITEM_HANDLER) {
             return lazyItemHandler.cast();
         }
+
         return super.getCapability(cap, side);
     }
 
@@ -86,7 +109,7 @@ public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider
 
     public void drops() {
         SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for (int i = 0; i <itemHandler.getSlots(); i++) {
+        for(int i = 0; i < itemHandler.getSlots(); i++) {
             inventory.setItem(i, itemHandler.getStackInSlot(i));
         }
         Containers.dropContents(this.level, this.worldPosition, inventory);
@@ -94,11 +117,12 @@ public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("block.kaes_armour_and_tools.alloy_smelter");
+        return Component.translatable("block.tutorialmod.gem_polishing_station");
     }
 
+    @Nullable
     @Override
-    public @Nullable AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
+    public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
         return new AlloySmelterMenu(pContainerId, pPlayerInventory, this, this.data);
     }
 
@@ -106,6 +130,7 @@ public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider
     protected void saveAdditional(CompoundTag pTag) {
         pTag.put("inventory", itemHandler.serializeNBT());
         pTag.putInt("alloy_smelter.progress", progress);
+
         super.saveAdditional(pTag);
     }
 
@@ -121,7 +146,7 @@ public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider
             increaseCraftingProgress();
             setChanged(pLevel, pPos, pState);
 
-            if (hasProgressFinished()) {
+            if(hasProgressFinished()) {
                 craftItem();
                 resetProgress();
             }
@@ -135,25 +160,33 @@ public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider
     }
 
     private void craftItem() {
-        ItemStack result = new ItemStack(ModItems.EMMERCIUMINGOT.get(), 1);
-        this.itemHandler.extractItem(INPUT_SLOT_1, 1, false);
+        Optional<AlloySmelterRecipe> recipe = getCurrentRecipe();
+        ItemStack result = recipe.get().getResultItem(null);
 
-        this.itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(result.getItem(), this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + result.getCount()));
-    }
+        this.itemHandler.extractItem(INPUT_SLOT, 1, false);
 
-    private boolean hasProgressFinished() {
-        return progress >= maxProgress;
-    }
-
-    private void increaseCraftingProgress() {
-        progress++;
-
+        this.itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(result.getItem(),
+                this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + result.getCount()));
     }
 
     private boolean hasRecipe() {
-        boolean hasCraftingItem = this.itemHandler.getStackInSlot(INPUT_SLOT_1).getItem() == ModItems.RAWEMMERCIUM.get();
-        ItemStack result = new ItemStack(ModItems.EMMERCIUMINGOT.get());
-        return hasCraftingItem && canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+        Optional<AlloySmelterRecipe> recipe = getCurrentRecipe();
+
+        if(recipe.isEmpty()) {
+            return false;
+        }
+        ItemStack result = recipe.get().getResultItem(getLevel().registryAccess());
+
+        return canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
+    }
+
+    private Optional<AlloySmelterRecipe> getCurrentRecipe() {
+        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
+        for(int i = 0; i < itemHandler.getSlots(); i++) {
+            inventory.setItem(i, this.itemHandler.getStackInSlot(i));
+        }
+
+        return this.level.getRecipeManager().getRecipeFor(AlloySmelterRecipe.Type.INSTANCE, inventory, level);
     }
 
     private boolean canInsertItemIntoOutputSlot(Item item) {
@@ -162,5 +195,24 @@ public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider
 
     private boolean canInsertAmountIntoOutputSlot(int count) {
         return this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + count <= this.itemHandler.getStackInSlot(OUTPUT_SLOT).getMaxStackSize();
+    }
+
+    private boolean hasProgressFinished() {
+        return progress >= maxProgress;
+    }
+
+    private void increaseCraftingProgress() {
+        progress++;
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        return saveWithoutMetadata();
     }
 }

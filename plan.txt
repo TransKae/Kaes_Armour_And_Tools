@@ -31,7 +31,7 @@ Basic Jewel -
 
 Alloys:
 Durium - alloying 'emmercium' + 'obsidian'
-Pyrium - alloying 'quartz' + 'blaze powder' + 'netherack'
+Pyrium - alloying 'quartz' + 'blaze powder' + 'gold ingot'
 Bracium - alloying 'obsidian' + '
 Resilium - alloying 'reconstructed emmercium' + 'netherite' + 'end jewel'
 
