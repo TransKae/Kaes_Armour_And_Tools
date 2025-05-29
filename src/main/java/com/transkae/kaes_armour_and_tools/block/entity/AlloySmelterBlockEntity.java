@@ -178,11 +178,11 @@ public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider
     public void tick(Level pLevel, BlockPos pPos, BlockState pState) {
         boolean isBurning = burnTime > 0;
         if (isBurning) {
-            burnTime--;
+            burnTime = burnTime - 4;
         }
 
         if (hasRecipe()) {
-            if (burnTime == 0 && canBurn()) {
+            if (burnTime <= 0 && canBurn()) {
                 burnFuel();
             }
 

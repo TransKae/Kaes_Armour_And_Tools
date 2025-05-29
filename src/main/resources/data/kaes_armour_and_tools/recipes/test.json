@@ -1,12 +1,9 @@
 {
   "type": "kaes_armour_and_tools:alloy_smelting",
-  "input1": {
-    "item": "minecraft:iron_ingot"
-  },
-  "input2": {
-    "item": "minecraft:gold_ingot"
-  },
-  "input3":  {},
+  "ingredients": [
+    { "item": "minecraft:iron_ingot" },
+    { "item": "minecraft:gold_ingot" }
+  ],
   "output": {
     "item": "kaes_armour_and_tools:emmercium_ingot",
     "count": 1

@@ -14,52 +14,59 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class AlloySmelterRecipe implements Recipe<SimpleContainer> {
-    private final Ingredient input1;
-    private final Ingredient input2;
-    private final Ingredient input3;
+    private final List<Ingredient> ingredients;
     private final ItemStack output;
 
     private final ResourceLocation id;
 
-    public AlloySmelterRecipe(ResourceLocation id, Ingredient input1, Ingredient input2, Ingredient input3, ItemStack output) {
+    public AlloySmelterRecipe(ResourceLocation id, List<Ingredient> ingredients, ItemStack output) {
         this.id = id;
-        this.input1 = input1;
-        this.input2 = input2;
-        this.input3 = input3;
+        this.ingredients = ingredients.stream()
+                .filter(ingredient -> !ingredient.isEmpty())
+                .collect(Collectors.toList());
         this.output = output;
     }
 
-    public Ingredient getInput1() {
-        return input1;
-    }
-
-    public Ingredient getInput2() {
-        return input2;
-    }
-
-    public Ingredient getInput3() {
-        return input3;
-    }
-
-    @Override
-    public boolean matches(SimpleContainer container, Level level) {
-        return  input1.test(container.getItem(0)) &&
-                input2.test(container.getItem(1)) &&
-                (input3 == Ingredient.EMPTY || input3.test(container.getItem(2)) || container.getItem(2).isEmpty());
-    }
-
+        public boolean matches(SimpleContainer container, Level level) {
+            List<ItemStack> inputs = new ArrayList<>();
+            for (int i = 0; i < 3; i++) {
+                ItemStack stack = container.getItem(i);
+                if (!stack.isEmpty()) {
+                    inputs.add(stack.copy());
+                }
+            }
+            List<Ingredient> expected = new ArrayList<>(ingredients);
+            for (Ingredient ingredient : expected) {
+                boolean matched = false;
+                Iterator<ItemStack> iter = inputs.iterator();
+                while (iter.hasNext()) {
+                    ItemStack stack = iter.next();
+                    if (ingredient.test(stack)) {
+                        iter.remove();
+                        matched = true;
+                        break;
+                    }
+                }
+                if (!matched) {
+                    return false;
+                }
+            }
+            return inputs.isEmpty(); // ensure no extra items
+        }
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        NonNullList<Ingredient> ingredients = NonNullList.create();
-        ingredients.add(input1);
-        ingredients.add(input2);
-        ingredients.add(input3);
-        return ingredients;
+        NonNullList<Ingredient> list = NonNullList.create();
+        list.addAll(ingredients);
+        return list;
     }
-
-
 
     @Override
     public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
@@ -102,32 +109,41 @@ public class AlloySmelterRecipe implements Recipe<SimpleContainer> {
 
         @Override
         public AlloySmelterRecipe fromJson(ResourceLocation id, JsonObject json) {
-            Ingredient input1 = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "input1"));
-            Ingredient input2 = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "input2"));
-            Ingredient input3 = json.has("input3")
-                    ? Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "input3"))
-                    : Ingredient.EMPTY;
+            JsonArray ingredientsArray = GsonHelper.getAsJsonArray(json, "ingredients");
+            List<Ingredient> ingredients = new ArrayList<>();
+            for (int i = 0; i < ingredientsArray.size(); i++) {
+                ingredients.add(Ingredient.fromJson(ingredientsArray.get(i)));
+            }
+
+            if (ingredients.size() < 2 || ingredients.size() > 3) {
+                throw new IllegalArgumentException("Alloy Smelter recipe must have 2 or 3 ingredients.");
+            }
+
             ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 
-            return new AlloySmelterRecipe(id, input1, input2, input3, output);
+            return new AlloySmelterRecipe(id, ingredients, output);
         }
 
         @Override
         public AlloySmelterRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buffer) {
-            Ingredient input1 = Ingredient.fromNetwork(buffer);
-            Ingredient input2 = Ingredient.fromNetwork(buffer);
-            Ingredient input3 = Ingredient.fromNetwork(buffer);
-            ItemStack output = buffer.readItem();
+            int size = buffer.readInt();
+            List<Ingredient> ingredients = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                ingredients.add(Ingredient.fromNetwork(buffer));
+            }
 
-            return new AlloySmelterRecipe(id, input1, input2, input3, output);
+            ItemStack output = buffer.readItem();
+            return new AlloySmelterRecipe(id, ingredients, output);
         }
 
 
         @Override
         public void toNetwork(FriendlyByteBuf buffer, AlloySmelterRecipe recipe) {
-            recipe.getInput1().toNetwork(buffer);
-            recipe.getInput2().toNetwork(buffer);
-            recipe.getInput3().toNetwork(buffer);
+            buffer.writeInt(recipe.getIngredients().size());
+            for (Ingredient ingredient : recipe.getIngredients()) {
+                ingredient.toNetwork(buffer);
+            }
+
             buffer.writeItemStack(recipe.getResultItem(null), false);
         }
     }

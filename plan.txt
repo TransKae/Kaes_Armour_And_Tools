@@ -10,7 +10,7 @@ Diamond - Netherite
 'Braced' - bracium - resistance 3, 100% KBresistance, regeneration, slowness - Very High Durability - bracium ingots
 
 Netherite+
-'resiliant' -resilium - regeneration 2, fire resistance, resistance 2, high KBresistance - Very High Durabilty - alloying 'reconstructed emmercium' + netherite + 
+'resiliant' - resilium - regeneration 2, fire resistance, resistance 2, high KBresistance - Very High Durabilty - alloying 'reconstructed emmercium' + netherite + 'bracium'
 
 
 Tools:
@@ -24,7 +24,7 @@ Recontructor: one input - uses quartz and power
 
 Materials:
 Basic:
-Emmercium
+Emmercium - ore generation or alloying 'iron ingot' + 'gold ingot' + 'stone'
 
 Jewels:
 Basic Jewel - 
@@ -32,7 +32,7 @@ Basic Jewel -
 Alloys:
 Durium - alloying 'emmercium' + 'obsidian'
 Pyrium - alloying 'quartz' + 'blaze powder' + 'gold ingot'
-Bracium - alloying 'obsidian' + '
+Bracium - alloying 'obsidian' + 'diamond'
 Resilium - alloying 'reconstructed emmercium' + 'netherite' + 'end jewel'
 
 Reconstructed:
