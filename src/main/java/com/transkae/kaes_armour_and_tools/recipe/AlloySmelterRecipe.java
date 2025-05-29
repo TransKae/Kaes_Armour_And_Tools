@@ -15,29 +15,51 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 public class AlloySmelterRecipe implements Recipe<SimpleContainer> {
-    private final NonNullList<Ingredient> inputItems;
+    private final Ingredient input1;
+    private final Ingredient input2;
+    private final Ingredient input3;
     private final ItemStack output;
+
     private final ResourceLocation id;
 
-    public AlloySmelterRecipe(NonNullList<Ingredient> inputItems, ItemStack output, ResourceLocation id) {
-        this.inputItems = inputItems;
-        this.output = output;
+    public AlloySmelterRecipe(ResourceLocation id, Ingredient input1, Ingredient input2, Ingredient input3, ItemStack output) {
         this.id = id;
+        this.input1 = input1;
+        this.input2 = input2;
+        this.input3 = input3;
+        this.output = output;
+    }
+
+    public Ingredient getInput1() {
+        return input1;
+    }
+
+    public Ingredient getInput2() {
+        return input2;
+    }
+
+    public Ingredient getInput3() {
+        return input3;
     }
 
     @Override
-    public boolean matches(SimpleContainer pContainer, Level pLevel) {
-        if(pLevel.isClientSide()) {
-            return false;
-        }
-
-        return inputItems.get(0).test(pContainer.getItem(0));
+    public boolean matches(SimpleContainer container, Level level) {
+        return  input1.test(container.getItem(0)) &&
+                input2.test(container.getItem(1)) &&
+                (input3 == Ingredient.EMPTY || input3.test(container.getItem(2)) || container.getItem(2).isEmpty());
     }
+
 
     @Override
     public NonNullList<Ingredient> getIngredients() {
-        return inputItems;
+        NonNullList<Ingredient> ingredients = NonNullList.create();
+        ingredients.add(input1);
+        ingredients.add(input2);
+        ingredients.add(input3);
+        return ingredients;
     }
+
+
 
     @Override
     public ItemStack assemble(SimpleContainer pContainer, RegistryAccess pRegistryAccess) {
@@ -79,40 +101,34 @@ public class AlloySmelterRecipe implements Recipe<SimpleContainer> {
         public static final ResourceLocation ID = new ResourceLocation(KaesArmourAndTools.MOD_ID, "alloy_smelting");
 
         @Override
-        public AlloySmelterRecipe fromJson(ResourceLocation pRecipeId, JsonObject pSerializedRecipe) {
-            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pSerializedRecipe, "output"));
+        public AlloySmelterRecipe fromJson(ResourceLocation id, JsonObject json) {
+            Ingredient input1 = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "input1"));
+            Ingredient input2 = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "input2"));
+            Ingredient input3 = json.has("input3")
+                    ? Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "input3"))
+                    : Ingredient.EMPTY;
+            ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 
-            JsonArray ingredients = GsonHelper.getAsJsonArray(pSerializedRecipe, "ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.withSize(1, Ingredient.EMPTY);
-
-            for(int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromJson(ingredients.get(i)));
-            }
-
-            return new AlloySmelterRecipe(inputs, output, pRecipeId);
+            return new AlloySmelterRecipe(id, input1, input2, input3, output);
         }
 
         @Override
-        public @Nullable AlloySmelterRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            NonNullList<Ingredient> inputs = NonNullList.withSize(pBuffer.readInt(), Ingredient.EMPTY);
+        public AlloySmelterRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buffer) {
+            Ingredient input1 = Ingredient.fromNetwork(buffer);
+            Ingredient input2 = Ingredient.fromNetwork(buffer);
+            Ingredient input3 = Ingredient.fromNetwork(buffer);
+            ItemStack output = buffer.readItem();
 
-            for(int i = 0; i < inputs.size(); i++) {
-                inputs.set(i, Ingredient.fromNetwork(pBuffer));
-            }
-
-            ItemStack output = pBuffer.readItem();
-            return new AlloySmelterRecipe(inputs, output, pRecipeId);
+            return new AlloySmelterRecipe(id, input1, input2, input3, output);
         }
 
+
         @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, AlloySmelterRecipe pRecipe) {
-            pBuffer.writeInt(pRecipe.inputItems.size());
-
-            for (Ingredient ingredient : pRecipe.getIngredients()) {
-                ingredient.toNetwork(pBuffer);
-            }
-
-            pBuffer.writeItemStack(pRecipe.getResultItem(null), false);
+        public void toNetwork(FriendlyByteBuf buffer, AlloySmelterRecipe recipe) {
+            recipe.getInput1().toNetwork(buffer);
+            recipe.getInput2().toNetwork(buffer);
+            recipe.getInput3().toNetwork(buffer);
+            buffer.writeItemStack(recipe.getResultItem(null), false);
         }
     }
 }

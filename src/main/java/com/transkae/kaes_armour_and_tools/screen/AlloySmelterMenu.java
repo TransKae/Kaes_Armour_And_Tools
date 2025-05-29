@@ -19,7 +19,7 @@ public class AlloySmelterMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public AlloySmelterMenu(int pContainerId, Inventory inv, FriendlyByteBuf extraData) {
-        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(2));
+        this(pContainerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()), new SimpleContainerData(5));
     }
 
     public AlloySmelterMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
@@ -33,8 +33,11 @@ public class AlloySmelterMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler -> {
-            this.addSlot(new SlotItemHandler(iItemHandler, 0, 80, 11));
-            this.addSlot(new SlotItemHandler(iItemHandler, 1, 80, 59));
+            this.addSlot(new SlotItemHandler(iItemHandler, 0, 60, 11));  //
+            this.addSlot(new SlotItemHandler(iItemHandler, 1, 80, 11));  //Input Slots
+            this.addSlot(new SlotItemHandler(iItemHandler, 2, 100, 11));  //
+            this.addSlot(new SlotItemHandler(iItemHandler, 3, 20, 59));  //Fuel Slot
+            this.addSlot(new SlotItemHandler(iItemHandler, 4, 80, 59));  //Output Slot
         });
 
         addDataSlots(data);
@@ -68,7 +71,7 @@ public class AlloySmelterMenu extends AbstractContainerMenu {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 2;  // must be the number of slots you have!
+    private static final int TE_INVENTORY_SLOT_COUNT = 5;  // must be the number of slots you have!
     @Override
     public ItemStack quickMoveStack(Player playerIn, int pIndex) {
         Slot sourceSlot = slots.get(pIndex);

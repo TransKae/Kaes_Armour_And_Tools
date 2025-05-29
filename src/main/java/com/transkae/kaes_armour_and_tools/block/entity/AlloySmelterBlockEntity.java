@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider {
-    private final ItemStackHandler itemHandler = new ItemStackHandler(2) {
+    private final ItemStackHandler itemHandler = new ItemStackHandler(5) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -42,8 +42,15 @@ public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider
         }
     };
 
-    private static final int INPUT_SLOT = 0;
-    private static final int OUTPUT_SLOT = 1;
+    private static final int INPUT_SLOT_1 = 0;
+    private static final int INPUT_SLOT_2 = 1;
+    private static final int INPUT_SLOT_3 = 2;
+    private static final int FUEL_SLOT = 3;
+    private static final int OUTPUT_SLOT = 4;
+
+    private int burnTime = 0;
+    private int fuelTime = 0;
+
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
@@ -55,36 +62,46 @@ public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider
         super(ModBlockEntities.ALLOY_SMELTER_BE.get(), pPos, pBlockState);
         this.data = new ContainerData() {
             @Override
-            public int get(int pIndex) {
-                return switch (pIndex) {
-                    case 0 -> AlloySmelterBlockEntity.this.progress;
-                    case 1 -> AlloySmelterBlockEntity.this.maxProgress;
+            public int get(int index) {
+                return switch (index) {
+                    case 0 -> progress;
+                    case 1 -> maxProgress;
+                    case 2 -> burnTime;
+                    case 3 -> fuelTime;
                     default -> 0;
                 };
             }
 
-            @Override
-            public void set(int pIndex, int pValue) {
-                switch (pIndex) {
-                    case 0 -> AlloySmelterBlockEntity.this.progress = pValue;
-                    case 1 -> AlloySmelterBlockEntity.this.maxProgress = pValue;
+            public void set(int index, int value) {
+                switch (index) {
+                    case 0 -> progress = value;
+                    case 1 -> maxProgress = value;
+                    case 2 -> burnTime = value;
+                    case 3 -> fuelTime = value;
                 }
             }
 
-            @Override
             public int getCount() {
-                return 2;
+                return 4;
             }
         };
     }
 
     public ItemStack getRenderStack() {
-        if(itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty()) {
-            return itemHandler.getStackInSlot(INPUT_SLOT);
-        } else {
+        if (!itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty()) {
             return itemHandler.getStackInSlot(OUTPUT_SLOT);
         }
+
+        for (int slot : new int[]{INPUT_SLOT_1, INPUT_SLOT_2, INPUT_SLOT_3}) {
+            ItemStack stack = itemHandler.getStackInSlot(slot);
+            if (!stack.isEmpty()) {
+                return stack;
+            }
+        }
+
+        return ItemStack.EMPTY;
     }
+
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
@@ -117,7 +134,7 @@ public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("block.tutorialmod.gem_polishing_station");
+        return Component.translatable("block.kaes_armour_and_tools.alloy_smelter");
     }
 
     @Nullable
@@ -127,33 +144,64 @@ public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider
     }
 
     @Override
-    protected void saveAdditional(CompoundTag pTag) {
-        pTag.put("inventory", itemHandler.serializeNBT());
-        pTag.putInt("alloy_smelter.progress", progress);
-
-        super.saveAdditional(pTag);
+    protected void saveAdditional(CompoundTag tag) {
+        tag.put("inventory", itemHandler.serializeNBT());
+        tag.putInt("alloy_smelter.progress", progress);
+        tag.putInt("alloy_smelter.burnTime", burnTime);
+        tag.putInt("alloy_smelter.fuelTime", fuelTime);
+        super.saveAdditional(tag);
     }
 
     @Override
-    public void load(CompoundTag pTag) {
-        super.load(pTag);
-        itemHandler.deserializeNBT(pTag.getCompound("inventory"));
-        progress = pTag.getInt("alloy_smelter.progress");
+    public void load(CompoundTag tag) {
+        super.load(tag);
+        itemHandler.deserializeNBT(tag.getCompound("inventory"));
+        progress = tag.getInt("alloy_smelter.progress");
+        burnTime = tag.getInt("alloy_smelter.burnTime");
+        fuelTime = tag.getInt("alloy_smelter.fuelTime");
     }
 
-    public void tick(Level pLevel, BlockPos pPos, BlockState pState) {
-        if(hasRecipe()) {
-            increaseCraftingProgress();
-            setChanged(pLevel, pPos, pState);
 
-            if(hasProgressFinished()) {
-                craftItem();
+    private boolean canBurn() {
+        ItemStack fuelStack = itemHandler.getStackInSlot(FUEL_SLOT);
+        return net.minecraftforge.common.ForgeHooks.getBurnTime(fuelStack, null) > 0;
+    }
+
+    private void burnFuel() {
+        ItemStack fuelStack = itemHandler.getStackInSlot(FUEL_SLOT);
+        fuelTime = net.minecraftforge.common.ForgeHooks.getBurnTime(fuelStack, null);
+        burnTime = fuelTime;
+        fuelStack.shrink(1);
+    }
+
+
+    public void tick(Level pLevel, BlockPos pPos, BlockState pState) {
+        boolean isBurning = burnTime > 0;
+        if (isBurning) {
+            burnTime--;
+        }
+
+        if (hasRecipe()) {
+            if (burnTime == 0 && canBurn()) {
+                burnFuel();
+            }
+
+            if (burnTime > 0) {
+                increaseCraftingProgress();
+                if (hasProgressFinished()) {
+                    craftItem();
+                    resetProgress();
+                }
+            } else {
                 resetProgress();
             }
         } else {
             resetProgress();
         }
+
+        setChanged(pLevel, pPos, pState);
     }
+
 
     private void resetProgress() {
         progress = 0;
@@ -161,13 +209,21 @@ public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider
 
     private void craftItem() {
         Optional<AlloySmelterRecipe> recipe = getCurrentRecipe();
-        ItemStack result = recipe.get().getResultItem(null);
+        if (recipe.isEmpty()) return;
+        ItemStack result = recipe.get().getResultItem(getLevel().registryAccess());
 
-        this.itemHandler.extractItem(INPUT_SLOT, 1, false);
+        itemHandler.extractItem(INPUT_SLOT_1, 1, false);
+        itemHandler.extractItem(INPUT_SLOT_2, 1, false);
+        itemHandler.extractItem(INPUT_SLOT_3, 1, false);
 
-        this.itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(result.getItem(),
-                this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + result.getCount()));
+        ItemStack output = itemHandler.getStackInSlot(OUTPUT_SLOT);
+        if (output.isEmpty()) {
+            itemHandler.setStackInSlot(OUTPUT_SLOT, result.copy());
+        } else {
+            output.grow(result.getCount());
+        }
     }
+
 
     private boolean hasRecipe() {
         Optional<AlloySmelterRecipe> recipe = getCurrentRecipe();
@@ -181,10 +237,10 @@ public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider
     }
 
     private Optional<AlloySmelterRecipe> getCurrentRecipe() {
-        SimpleContainer inventory = new SimpleContainer(this.itemHandler.getSlots());
-        for(int i = 0; i < itemHandler.getSlots(); i++) {
-            inventory.setItem(i, this.itemHandler.getStackInSlot(i));
-        }
+        SimpleContainer inventory = new SimpleContainer(3);
+        inventory.setItem(0, this.itemHandler.getStackInSlot(INPUT_SLOT_1));
+        inventory.setItem(1, this.itemHandler.getStackInSlot(INPUT_SLOT_2));
+        inventory.setItem(2, this.itemHandler.getStackInSlot(INPUT_SLOT_3));
 
         return this.level.getRecipeManager().getRecipeFor(AlloySmelterRecipe.Type.INSTANCE, inventory, level);
     }
