@@ -2,6 +2,8 @@ package com.transkae.kaes_armour_and_tools.screen;
 
 import com.transkae.kaes_armour_and_tools.block.ModBlocks;
 import com.transkae.kaes_armour_and_tools.block.entity.AlloySmelterBlockEntity;
+import com.transkae.kaes_armour_and_tools.screen.slot.CustomFuelSlot;
+import com.transkae.kaes_armour_and_tools.screen.slot.CustomOutputSlot;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -24,7 +26,7 @@ public class AlloySmelterMenu extends AbstractContainerMenu {
 
     public AlloySmelterMenu(int pContainerId, Inventory inv, BlockEntity entity, ContainerData data) {
         super(ModMenuTypes.ALLOYSMELTERMENU.get(), pContainerId);
-        checkContainerSize(inv, 2);
+        checkContainerSize(inv, 5);
         blockEntity = ((AlloySmelterBlockEntity) entity);
         this.level = inv.player.level();
         this.data = data;
@@ -33,11 +35,11 @@ public class AlloySmelterMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(iItemHandler -> {
-            this.addSlot(new SlotItemHandler(iItemHandler, 0, 60, 11));  //
+            this.addSlot(new SlotItemHandler(iItemHandler, 0, 58, 15));  //
             this.addSlot(new SlotItemHandler(iItemHandler, 1, 80, 11));  //Input Slots
-            this.addSlot(new SlotItemHandler(iItemHandler, 2, 100, 11));  //
-            this.addSlot(new SlotItemHandler(iItemHandler, 3, 20, 59));  //Fuel Slot
-            this.addSlot(new SlotItemHandler(iItemHandler, 4, 80, 59));  //Output Slot
+            this.addSlot(new SlotItemHandler(iItemHandler, 2, 102, 15));  //
+            this.addSlot(new CustomFuelSlot(iItemHandler, 3, 31, 50));  //Fuel Slot
+            this.addSlot(new CustomOutputSlot(iItemHandler, 4, 80, 59));  //Output Slot
         });
 
         addDataSlots(data);
@@ -45,6 +47,14 @@ public class AlloySmelterMenu extends AbstractContainerMenu {
 
     public boolean isCrafting() {
         return data.get(0) > 0;
+    }
+
+    public int getFuelProgress() {
+        int burnTime = this.data.get(2);  // current
+        int fuelTime = this.data.get(3);  // max
+        int fireSize = 14;
+
+        return fuelTime != 0 && burnTime != 0 ? burnTime * fireSize / fuelTime : 0;
     }
 
     public int getScaledProgress() {

@@ -34,12 +34,21 @@ public class AlloySmelterScreen extends AbstractContainerScreen<AlloySmelterMenu
         pGuiGraphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight);
 
         renderProgressArrow(pGuiGraphics, x, y);
+        renderFuelFlame(pGuiGraphics, x, y);
     }
 
     private void renderProgressArrow(GuiGraphics pGuiGraphics, int x, int y) {
         if(menu.isCrafting()) {
             pGuiGraphics.blit(TEXTURE, x + 85, y + 30, 176, 0, 8, menu.getScaledProgress());
         }
+    }
+
+    private void renderFuelFlame(GuiGraphics pGuiGraphics, int x, int y) {
+        if (menu.getFuelProgress() > 0) {
+            int k = menu.getFuelProgress();
+            pGuiGraphics.blit(TEXTURE, x + 31, y + 4 + 42 - k, 176, 42 - k, 14, k + 1);
+        }// 176 29      31 33
+
     }
 
     @Override

@@ -48,15 +48,15 @@ public class AlloySmelterBlockEntity extends BlockEntity implements MenuProvider
     private static final int FUEL_SLOT = 3;
     private static final int OUTPUT_SLOT = 4;
 
-    private int burnTime = 0;
-    private int fuelTime = 0;
+    private int burnTime = 0;  // Current Fuel Time
+    private int fuelTime = 0;  // Max Fuel Time
 
 
     private LazyOptional<IItemHandler> lazyItemHandler = LazyOptional.empty();
 
     protected final ContainerData data;
     private int progress = 0;
-    private int maxProgress = 78;
+    private int maxProgress = 150;
 
     public AlloySmelterBlockEntity(BlockPos pPos, BlockState pBlockState) {
         super(ModBlockEntities.ALLOY_SMELTER_BE.get(), pPos, pBlockState);
