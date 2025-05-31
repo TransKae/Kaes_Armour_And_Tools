@@ -3,6 +3,10 @@
     "kaes_armour_and_tools:emmercium_helmet",
     "kaes_armour_and_tools:emmercium_chestplate",
     "kaes_armour_and_tools:emmercium_leggings",
-    "kaes_armour_and_tools:emmercium_boots"
+    "kaes_armour_and_tools:emmercium_boots",
+    "kaes_armour_and_tools:durium_helmet",
+    "kaes_armour_and_tools:durium_chestplate",
+    "kaes_armour_and_tools:durium_leggings",
+    "kaes_armour_and_tools:durium_boots"
   ]
 }

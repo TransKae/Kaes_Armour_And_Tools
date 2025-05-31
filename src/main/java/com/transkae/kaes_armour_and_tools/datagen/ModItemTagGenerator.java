@@ -23,6 +23,10 @@ public class ModItemTagGenerator extends ItemTagsProvider {
                 .add(ModItems.EMMERCIUMHELMET.get(),
                         ModItems.EMMERCIUMCHESTPLATE.get(),
                         ModItems.EMMERCIUMLEGGINGS.get(),
-                        ModItems.EMMERCIUMBOOTS.get());
+                        ModItems.EMMERCIUMBOOTS.get(),
+                        ModItems.DURIUMHELMET.get(),
+                        ModItems.DURIUMCHESTPLATE.get(),
+                        ModItems.DURIUMLEGGINGS.get(),
+                        ModItems.DURIUMBOOTS.get());
     }
 }

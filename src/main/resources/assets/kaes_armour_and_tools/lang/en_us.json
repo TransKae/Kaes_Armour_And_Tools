@@ -16,7 +16,17 @@
   "item.kaes_armour_and_tools.emmercium_leggings": "Emmercium Leggings",
   "item.kaes_armour_and_tools.emmercium_boots": "Emmercium Boots",
 
+  "item.kaes_armour_and_tools.durium_ingot": "Durium Ingot",
+
+
+
+  "item.kaes_armour_and_tools.durium_helmet": "Durium Helmet",
+  "item.kaes_armour_and_tools.durium_chestplate": "Durium Chestplate",
+  "item.kaes_armour_and_tools.durium_leggings": "Durium Leggings",
+  "item.kaes_armour_and_tools.durium_boots": "Durium Boots",
+
   "tooltip.kaes_armour_and_tools.emmercium_armour": "Full Set Bonus: Haste I",
+  "tooltip.kaes_armour_and_tools.durium_armour": "Full Set Bonus: Resistance II",
 
   "creativetab.kaes_armour_and_tools_tab": "Kae's Armour and Tools"
 }

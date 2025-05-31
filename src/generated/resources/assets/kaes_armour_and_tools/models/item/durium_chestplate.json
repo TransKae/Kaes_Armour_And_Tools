@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "kaes_armour_and_tools:item/durium_chestplate"
+  }
+}

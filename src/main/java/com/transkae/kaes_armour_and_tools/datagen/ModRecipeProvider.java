@@ -42,35 +42,6 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                                 .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
 
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.EMMERCIUMHELMET.get())
-                .pattern("EEE")
-                .pattern("E E")
-                .pattern("   ")
-                .define('E', ModItems.EMMERCIUMINGOT.get())
-                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.EMMERCIUMCHESTPLATE.get())
-                .pattern("E E")
-                .pattern("EEE")
-                .pattern("EEE")
-                .define('E', ModItems.EMMERCIUMINGOT.get())
-                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.EMMERCIUMLEGGINGS.get())
-                .pattern("EEE")
-                .pattern("E E")
-                .pattern("E E")
-                .define('E', ModItems.EMMERCIUMINGOT.get())
-                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.EMMERCIUMBOOTS.get())
-                .pattern("E E")
-                .pattern("E E")
-                .pattern("   ")
-                .define('E', ModItems.EMMERCIUMINGOT.get())
-                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
-
-
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.EMMERCIUMSWORD.get())
                 .pattern("E")
                 .pattern("E")
@@ -107,6 +78,62 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
 
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.EMMERCIUMHELMET.get())
+                .pattern("EEE")
+                .pattern("E E")
+                .pattern("   ")
+                .define('E', ModItems.EMMERCIUMINGOT.get())
+                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.EMMERCIUMCHESTPLATE.get())
+                .pattern("E E")
+                .pattern("EEE")
+                .pattern("EEE")
+                .define('E', ModItems.EMMERCIUMINGOT.get())
+                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.EMMERCIUMLEGGINGS.get())
+                .pattern("EEE")
+                .pattern("E E")
+                .pattern("E E")
+                .define('E', ModItems.EMMERCIUMINGOT.get())
+                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.EMMERCIUMBOOTS.get())
+                .pattern("E E")
+                .pattern("E E")
+                .pattern("   ")
+                .define('E', ModItems.EMMERCIUMINGOT.get())
+                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
+
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.DURIUMHELMET.get())
+                .pattern("DDD")
+                .pattern("D D")
+                .pattern("   ")
+                .define('D', ModItems.DURIUMINGOT.get())
+                .unlockedBy(getHasName(ModItems.DURIUMINGOT.get()), has(ModItems.DURIUMINGOT.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.DURIUMCHESTPLATE.get())
+                .pattern("D D")
+                .pattern("DDD")
+                .pattern("DDD")
+                .define('D', ModItems.DURIUMINGOT.get())
+                .unlockedBy(getHasName(ModItems.DURIUMINGOT.get()), has(ModItems.DURIUMINGOT.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.DURIUMLEGGINGS.get())
+                .pattern("DDD")
+                .pattern("D D")
+                .pattern("D D")
+                .define('D', ModItems.DURIUMINGOT.get())
+                .unlockedBy(getHasName(ModItems.DURIUMINGOT.get()), has(ModItems.DURIUMINGOT.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.DURIUMBOOTS.get())
+                .pattern("D D")
+                .pattern("D D")
+                .pattern("   ")
+                .define('D', ModItems.DURIUMINGOT.get())
+                .unlockedBy(getHasName(ModItems.DURIUMINGOT.get()), has(ModItems.DURIUMINGOT.get())).save(consumer);
 
         //Shapeless Crafting
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.EMMERCIUMINGOT.get(), 9)

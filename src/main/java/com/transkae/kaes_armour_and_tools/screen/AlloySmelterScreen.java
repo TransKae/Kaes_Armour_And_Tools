@@ -47,7 +47,7 @@ public class AlloySmelterScreen extends AbstractContainerScreen<AlloySmelterMenu
         if (menu.getFuelProgress() > 0) {
             int k = menu.getFuelProgress();
             pGuiGraphics.blit(TEXTURE, x + 31, y + 4 + 42 - k, 176, 42 - k, 14, k + 1);
-        }// 176 29      31 33
+        }
 
     }
 

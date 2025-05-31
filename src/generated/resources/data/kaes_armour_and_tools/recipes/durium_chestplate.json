@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "D": {
+      "item": "kaes_armour_and_tools:durium_ingot"
+    }
+  },
+  "pattern": [
+    "D D",
+    "DDD",
+    "DDD"
+  ],
+  "result": {
+    "item": "kaes_armour_and_tools:durium_chestplate"
+  },
+  "show_notification": true
+}

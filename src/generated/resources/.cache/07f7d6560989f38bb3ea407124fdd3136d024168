@@ -1,4 +1,9 @@
-// 1.20.1	2025-04-19T21:14:42.1621623	Item Models: kaes_armour_and_tools
+// 1.20.1	2025-05-31T14:55:04.806951563	Item Models: kaes_armour_and_tools
+8919540d1e0f88f88ddb92bb1b117e85dcf1e1db assets/kaes_armour_and_tools/models/item/durium_boots.json
+cfd9850a983188d030fb8f904768fab13aab068d assets/kaes_armour_and_tools/models/item/durium_chestplate.json
+88e2ad80f1b5627ec16f198815e001c1e7c6f257 assets/kaes_armour_and_tools/models/item/durium_helmet.json
+7342f9bc3ef30936bee807a7f2c1071acaa325e8 assets/kaes_armour_and_tools/models/item/durium_ingot.json
+d3f290b5b2413503ab6577e6a6cc9cd6c32bbd56 assets/kaes_armour_and_tools/models/item/durium_leggings.json
 f157f300f0aa54955b8f6fb1689cb942dd7996d1 assets/kaes_armour_and_tools/models/item/emmercium_axe.json
 2766bdf10f1490cbd7f07a297c2ad9d7f09e3197 assets/kaes_armour_and_tools/models/item/emmercium_boots.json
 7c36335070fce03a259a2cd46cf6847825238f55 assets/kaes_armour_and_tools/models/item/emmercium_boots_amethyst_trim.json

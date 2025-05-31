@@ -54,6 +54,15 @@ public class ModItemModelProvider extends ItemModelProvider {
         trimmedArmorItem(ModItems.EMMERCIUMCHESTPLATE);
         trimmedArmorItem(ModItems.EMMERCIUMLEGGINGS);
         trimmedArmorItem(ModItems.EMMERCIUMBOOTS);
+
+        simpleItem(ModItems.DURIUMINGOT);
+
+
+
+        simpleItem(ModItems.DURIUMHELMET);
+        simpleItem(ModItems.DURIUMCHESTPLATE);
+        simpleItem(ModItems.DURIUMLEGGINGS);
+        simpleItem(ModItems.DURIUMBOOTS);
     }
 
     // Shoutout to El_Redstoniano for making this

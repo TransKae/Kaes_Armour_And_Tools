@@ -17,6 +17,7 @@ public class ModCreativeModeTabs
 
     public static final RegistryObject<CreativeModeTab> KAES_AAT_TAB = CREATIVE_MODE_TABS.register("kaes_aat_tab", () -> CreativeModeTab.builder().icon(() -> new ItemStack(ModItems.EMMERCIUMINGOT.get()))
             .title(Component.translatable("creativetab.kaes_armour_and_tools_tab")).displayItems((pParameters, pOutput) -> {
+                // Emmercium
                 pOutput.accept(ModItems.RAWEMMERCIUM.get());
                 pOutput.accept(ModBlocks.EMMERCIUMORE.get());
                 pOutput.accept(ModItems.EMMERCIUMINGOT.get());
@@ -32,7 +33,15 @@ public class ModCreativeModeTabs
                 pOutput.accept(ModItems.EMMERCIUMCHESTPLATE.get());
                 pOutput.accept(ModItems.EMMERCIUMLEGGINGS.get());
                 pOutput.accept(ModItems.EMMERCIUMBOOTS.get());
+                // Durium
+                pOutput.accept(ModItems.DURIUMINGOT.get());
 
+
+                pOutput.accept(ModItems.DURIUMHELMET.get());
+                pOutput.accept(ModItems.DURIUMCHESTPLATE.get());
+                pOutput.accept(ModItems.DURIUMLEGGINGS.get());
+                pOutput.accept(ModItems.DURIUMBOOTS.get());
+                // Block Entities
                 pOutput.accept(ModBlocks.ALLOYSMELTER.get());
             }).build());
 
