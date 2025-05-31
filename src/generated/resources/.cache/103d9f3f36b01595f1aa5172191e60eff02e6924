@@ -1,0 +1,4 @@
+// 1.20.1	2025-05-31T18:38:50.313383254	Registries
+0c2420ebe037a7b334111b6190d14bd4677e9c00 data/kaes_armour_and_tools/forge/biome_modifier/add_emmercium_ore.json
+7bc25cd6a1dfb7a23e77b7bb897a4418dbfd798c data/kaes_armour_and_tools/worldgen/configured_feature/emmercium_ore.json
+f5816d8773b43b74cc8624673386bbbc05dd68ec data/kaes_armour_and_tools/worldgen/placed_feature/emmercium_ore_placed.json
