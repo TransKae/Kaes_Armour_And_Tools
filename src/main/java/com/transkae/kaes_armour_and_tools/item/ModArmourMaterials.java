@@ -13,7 +13,7 @@ public enum ModArmourMaterials implements ArmorMaterial {
     EMMERCIUM("emmercium", 23, new int[]{ 3, 6, 5, 2 }, 13,
             SoundEvents.ARMOR_EQUIP_IRON, 0.5f, 0f, () -> Ingredient.of(ModItems.EMMERCIUMINGOT.get())),
     DURIUM("durium", 60, new int[]{ 2, 5, 4, 2 }, 18,
-            SoundEvents.ARMOR_EQUIP_NETHERITE, 1.5f, 3f, () -> Ingredient.of(ModItems.DURIUMINGOT.get()));
+            SoundEvents.ARMOR_EQUIP_NETHERITE, 1.5f, 1f, () -> Ingredient.of(ModItems.DURIUMINGOT.get()));
 
     private final String name;
     private final int durabilityMultiplier;

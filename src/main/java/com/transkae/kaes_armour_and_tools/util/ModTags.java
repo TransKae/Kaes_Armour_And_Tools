@@ -14,6 +14,7 @@ import javax.swing.text.html.HTML;
 public class ModTags {
     public static class Blocks {
         public static final TagKey<Block> NEEDSEMMERCIUMTOOL = tag("needs_emmercium_tool");
+        public static final TagKey<Block> NEEDSDURIUMTOOL = tag("needs_durium_tool");
 
         private static TagKey<Block> tag(String name) {
             //noinspection removal

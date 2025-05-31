@@ -33,14 +33,15 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
 
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
-        //Shaped Crafting
+        // Shaped Crafting
+
+        // Emmercium
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.EMMERCIUMBLOCK.get())
                 .pattern("EEE")
                 .pattern("EEE")
                 .pattern("EEE")
-                        .define('E', ModItems.EMMERCIUMINGOT.get())
-                                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
-
+                .define('E', ModItems.EMMERCIUMINGOT.get())
+                .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.EMMERCIUMSWORD.get())
                 .pattern("E")
@@ -105,6 +106,42 @@ public class ModRecipeProvider extends RecipeProvider implements IConditionBuild
                 .pattern("   ")
                 .define('E', ModItems.EMMERCIUMINGOT.get())
                 .unlockedBy(getHasName(ModItems.EMMERCIUMINGOT.get()), has(ModItems.EMMERCIUMINGOT.get())).save(consumer);
+
+        // Durium
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.DURIUMSWORD.get())
+                .pattern("D")
+                .pattern("D")
+                .pattern("S")
+                .define('D', ModItems.DURIUMINGOT.get()).define('S', Items.STICK)
+                .unlockedBy(getHasName(ModItems.DURIUMINGOT.get()), has(ModItems.DURIUMINGOT.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ModItems.DURIUMPICKAXE.get())
+                        .pattern("DDD")
+                        .pattern(" S ")
+                        .pattern(" S ")
+                                .define('D', ModItems.DURIUMINGOT.get()).define('S', Items.STICK)
+                        .unlockedBy(getHasName(ModItems.DURIUMINGOT.get()), has(ModItems.DURIUMINGOT.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ModItems.DURIUMAXE.get())
+                .pattern("DD ")
+                .pattern("DS ")
+                .pattern(" S ")
+                .define('D', ModItems.DURIUMINGOT.get()).define('S', Items.STICK)
+                .unlockedBy(getHasName(ModItems.DURIUMINGOT.get()), has(ModItems.DURIUMINGOT.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ModItems.DURIUMSHOVEL.get())
+                .pattern("D")
+                .pattern("S")
+                .pattern("S")
+                .define('D', ModItems.DURIUMINGOT.get()).define('S', Items.STICK)
+                .unlockedBy(getHasName(ModItems.DURIUMINGOT.get()), has(ModItems.DURIUMINGOT.get())).save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ModItems.DURIUMHOE.get())
+                .pattern("DD ")
+                .pattern(" S ")
+                .pattern(" S ")
+                .define('D', ModItems.DURIUMINGOT.get()).define('S', Items.STICK)
+                .unlockedBy(getHasName(ModItems.DURIUMINGOT.get()), has(ModItems.DURIUMINGOT.get())).save(consumer);
 
 
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.DURIUMHELMET.get())

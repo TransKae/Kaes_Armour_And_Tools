@@ -1,0 +1,11 @@
+{
+  "type": "kaes_armour_and_tools:alloy_smelting",
+  "ingredients": [
+    { "item": "kaes_armour_and_tools:emmercium_ingot" },
+    { "item": "minecraft:obsidian" }
+  ],
+  "output": {
+    "item": "kaes_armour_and_tools:durium_ingot",
+    "count": 1
+  }
+}

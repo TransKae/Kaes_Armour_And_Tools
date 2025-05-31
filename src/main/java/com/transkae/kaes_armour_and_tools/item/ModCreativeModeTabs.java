@@ -36,6 +36,11 @@ public class ModCreativeModeTabs
                 // Durium
                 pOutput.accept(ModItems.DURIUMINGOT.get());
 
+                pOutput.accept(ModItems.DURIUMSWORD.get());
+                pOutput.accept(ModItems.DURIUMPICKAXE.get());
+                pOutput.accept(ModItems.DURIUMAXE.get());
+                pOutput.accept(ModItems.DURIUMSHOVEL.get());
+                pOutput.accept(ModItems.DURIUMHOE.get());
 
                 pOutput.accept(ModItems.DURIUMHELMET.get());
                 pOutput.accept(ModItems.DURIUMCHESTPLATE.get());

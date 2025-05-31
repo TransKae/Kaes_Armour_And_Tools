@@ -34,7 +34,11 @@ public class ModItems
     // Durium
     public static final RegistryObject<Item> DURIUMINGOT = ITEMS.register("durium_ingot", () -> new Item(new Item.Properties()));
 
-
+    public static final RegistryObject<Item> DURIUMSWORD = ITEMS.register("durium_sword", () -> new SwordItem(ModToolTiers.DURIUM, 3, -2.4f, new Item.Properties()));
+    public static final RegistryObject<Item> DURIUMPICKAXE = ITEMS.register("durium_pickaxe", () -> new SwordItem(ModToolTiers.DURIUM, 1, -2.9f, new Item.Properties()));
+    public static final RegistryObject<Item> DURIUMAXE = ITEMS.register("durium_axe", () -> new SwordItem(ModToolTiers.DURIUM, 4, -2.9f, new Item.Properties()));
+    public static final RegistryObject<Item> DURIUMSHOVEL = ITEMS.register("durium_shovel", () -> new SwordItem(ModToolTiers.DURIUM, 0, -2.9f, new Item.Properties()));
+    public static final RegistryObject<Item> DURIUMHOE = ITEMS.register("durium_hoe", () -> new SwordItem(ModToolTiers.DURIUM, -1, -2.9f, new Item.Properties()));
 
     public static final RegistryObject<Item> DURIUMHELMET = ITEMS.register("durium_helmet", () -> new DuriumArmorItems(ModArmourMaterials.DURIUM, ArmorItem.Type.HELMET, new Item.Properties()));
     public static final RegistryObject<Item> DURIUMCHESTPLATE = ITEMS.register("durium_chestplate", () -> new DuriumArmorItems(ModArmourMaterials.DURIUM, ArmorItem.Type.CHESTPLATE, new Item.Properties()));

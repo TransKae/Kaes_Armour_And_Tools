@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "D": {
+      "item": "kaes_armour_and_tools:durium_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "D",
+    "D",
+    "S"
+  ],
+  "result": {
+    "item": "kaes_armour_and_tools:durium_sword"
+  },
+  "show_notification": true
+}

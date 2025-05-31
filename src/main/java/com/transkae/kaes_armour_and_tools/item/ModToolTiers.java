@@ -13,7 +13,12 @@ import java.util.List;
 
 public class ModToolTiers {
     public static final Tier EMMERCIUM = TierSortingRegistry.registerTier(
-            new ForgeTier(3, 1250, 7.5f, 2.5f, 15,
+            new ForgeTier(3, 680, 7.5f, 2.5f, 15,
                     ModTags.Blocks.NEEDSEMMERCIUMTOOL, () -> Ingredient.of(ModItems.EMMERCIUMINGOT.get())),
-            new ResourceLocation(KaesArmourAndTools.MOD_ID, "sapphire"), List.of(Tiers.IRON), List.of(Tiers.DIAMOND));
+            new ResourceLocation(KaesArmourAndTools.MOD_ID, "emmercium"), List.of(Tiers.IRON), List.of(Tiers.DIAMOND));
+
+    public static final Tier DURIUM = TierSortingRegistry.registerTier(
+            new ForgeTier(3, 1750, 5.5f, 1.5f, 19,
+                    ModTags.Blocks.NEEDSDURIUMTOOL, () -> Ingredient.of(ModItems.DURIUMINGOT.get())),
+            new ResourceLocation(KaesArmourAndTools.MOD_ID, "durium"), List.of(Tiers.IRON), List.of(Tiers.DIAMOND));
 }
